@@ -32,9 +32,7 @@ namespace Big_Domashka
             bool b = true;
             bool exit_From_Buyer = true;
             bool exit_From_Manager = true;
-
-
-            while (b)
+            while (b) // если сделать loop через рекурсию будет лучше или нет?
             {
                 Console.WriteLine("Введите r если хотите зарегистрироваться, Введите s если хотите войти");
                 switch (Console.ReadLine())
@@ -62,6 +60,8 @@ namespace Big_Domashka
                         {
                             Console.WriteLine("Неправильный логин или пароль");
                         }
+                        break;
+                    default:
                         b = false;
                         break;
                 }
@@ -85,7 +85,7 @@ namespace Big_Domashka
             }
             void Manager_Moves()
             {
-                while ()
+                while (exit_From_Manager)
                 {
                     Console.WriteLine("Введите 1 если хотите выйти из аккаунта");
                     Console.WriteLine("Введите 2 если хотите добавить товар в списко товаров");
@@ -95,7 +95,8 @@ namespace Big_Domashka
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            goto start;
+                            exit_From_Manager = false;
+                            break;
                         case "2":
                             mikpres.listOfProducts.Add(Product.Add());
                             break;
@@ -118,7 +119,7 @@ namespace Big_Domashka
             {
                 ShoppingCart shoppingCart = new ShoppingCart();
                 Order order = new Order();
-                while (true)
+                while (exit_From_Buyer)
                 {
                     Console.WriteLine("Введите 1 если хотите выйти из аккаунта");
                     Console.WriteLine("Введите 2 если хотите просмотреть список товаров");
@@ -132,7 +133,8 @@ namespace Big_Domashka
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            goto start;
+                            exit_From_Buyer = false;
+                            break;
                         case "2":
                             Output_Name_Products();
                             break;
@@ -243,10 +245,6 @@ namespace Big_Domashka
                     }
                 }
             }
-            
-        
-            
-
         }
         
     }
