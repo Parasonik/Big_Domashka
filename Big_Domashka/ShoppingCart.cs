@@ -9,8 +9,7 @@ namespace Big_Domashka
     {
 
         public Guid id;
-        private byte capacity = 50;
-        public List<Product> listOfOrderItems = new List<Product>();
-        
+        private byte capacity = 50; // зачем оно нужно если можно сразу поставить предел в листе
+        public List<OrderItem> listOfOrderItems = new List<OrderItem>();
     }
 }

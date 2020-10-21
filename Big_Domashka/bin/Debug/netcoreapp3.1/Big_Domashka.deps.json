@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Big_Domashka/1.0.0": {
+        "runtime": {
+          "Big_Domashka.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Big_Domashka/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -23,5 +23,6 @@ namespace Big_Domashka
         private string name { get; set; }
         private string description { get; set; }
         public List<Product> listOfProducts = new List<Product>();
+        
     }
 }

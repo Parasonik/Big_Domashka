@@ -8,6 +8,7 @@ namespace Big_Domashka
 {
     public class Buyer : Person
     {
+        public static List<Buyer> users_Buyer = new List<Buyer>();
         public Guid id { get; set; }
 
         public string role = "buyer";
@@ -20,8 +21,8 @@ namespace Big_Domashka
         private DateTime dateOfbirth{ get; set; }
         private DateTime dateOfRegister { get; set; }
         private Guid shoppingCartId { get; set; }
-        private List<Order> listOfOrders = new List<Order>();  
-        public Buyer Registration() 
+        public List<Order> listOfOrders = new List<Order>();  
+        public static Buyer Registration() 
         {
             Buyer Ghost = new Buyer();
             Ghost.id = Guid.NewGuid();
