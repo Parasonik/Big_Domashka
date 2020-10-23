@@ -153,7 +153,19 @@ namespace Big_Domashka
                 else
                 {
                     Order order = new Order(Buyer.users_Buyer[index].id, shoppingCart.listOfOrderItems);
-                    Buyer.users_Buyer[Buyer.users_Buyer.FindIndex(m => m.login == Buyer.users_Buyer[index].login)].listOfOrders.Add(order); // Тут ошибка не могу понять в чём
+                    var i = Buyer.users_Buyer.FindIndex(m => m.login == Buyer.users_Buyer[index].login);
+                    if (i >= 0)
+                    {
+                        if (Buyer.users_Buyer[i].listOfOrders==null)
+                        {
+                            Buyer.users_Buyer[i].listOfOrders = new List<Order>();
+                        }
+                        Buyer.users_Buyer[i].listOfOrders.Add(order); // Тут ошибка не могу понять в чём
+                    }
+                    else
+                    {
+                        Console.WriteLine("User not found");
+                    }
                 }
             }
             void Check_ListOfOrder(int index)
