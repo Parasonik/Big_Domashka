@@ -34,26 +34,30 @@ namespace Big_Domashka
                         Buyer.users_Buyer.Add(Buyer.Registration());
                         break;
                     case "s":
-                        var foundedUser = Person.Sign_in();
-                        if (foundedUser != null)
-                        {
-                            if (foundedUser.role == "manager")
-                            {
-                                Manager_Moves();
-                            }
-                            else
-                            {
-                                Buyer_Moves(foundedUser);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Неправильный логин или пароль");
-                        }
+                        Check_Role();
                         break;
                     default:
                         exit_From_Shop = false;
                         break;
+                }
+            }
+            void Check_Role()
+            {
+                var foundedUser = Person.Sign_in();
+                if (foundedUser != null)
+                {
+                    if (foundedUser.role == "manager")
+                    {
+                        Manager_Moves();
+                    }
+                    else
+                    {
+                        Buyer_Moves(foundedUser);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Неправильный логин или пароль");
                 }
             }
             void Output_Data_Products()
@@ -239,8 +243,6 @@ namespace Big_Domashka
                         case "10":
                             Check_Order_Data(index_Of_User);
                             break;
-
-
                     }
                 }
             }

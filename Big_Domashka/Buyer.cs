@@ -45,6 +45,5 @@ namespace Big_Domashka
             Ghost.listOfOrders = null;
             return Ghost;
         }
-       
     }
 }
