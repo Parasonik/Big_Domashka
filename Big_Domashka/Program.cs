@@ -25,7 +25,7 @@ namespace Big_Domashka
             bool exit_From_Shop = true;
             bool exit_From_Buyer = true;
             bool exit_From_Manager = true;
-            while (exit_From_Shop) // если сделать loop через рекурсию будет лучше или нет?
+            while (exit_From_Shop)
             {
                 Console.WriteLine("Введите r если хотите зарегистрироваться, Введите s если хотите войти");
                 switch (Console.ReadLine())
@@ -69,7 +69,7 @@ namespace Big_Domashka
             {
                 for (int i = 0; i < mikpres.listOfProducts.Count; i++)
                 {
-                    Console.WriteLine(mikpres.listOfProducts.ElementAt(i).name);
+                    Console.WriteLine(mikpres.listOfProducts[i].name);
                 }
             }
             void Menu_Manager()
@@ -90,7 +90,8 @@ namespace Big_Domashka
                 Console.WriteLine("Введите 6 если хотите очистить корзину");
                 Console.WriteLine("Введите 7 если хотите изменить кол-во товаров в корзине");
                 Console.WriteLine("Введите 8 если хотите оформить заказ");
-                Console.WriteLine("Введите 9 если хотите посмотреть подробности о своём заказе");
+                Console.WriteLine("Введите 9 если хотите просмотреть свои заказы");
+                Console.WriteLine("Введите 10 если хотите просмотреть подробности о своём заказе");
             }
             void Manager_Moves()
             {
@@ -124,8 +125,10 @@ namespace Big_Domashka
                 string name = Console.ReadLine();
                 Console.WriteLine("Введите в каком количесвте вы хотите купить товар");
                 double enter_amount = Convert.ToInt32(Console.ReadLine());
-                shoppingCart.listOfOrderItems.Add(OrderItem.Get(mikpres.listOfProducts.Find(m => m.name == name).id, enter_amount));
-                mikpres.listOfProducts[mikpres.listOfProducts.FindIndex(m => m.name == name)].amount -= enter_amount;
+                Guid id = mikpres.listOfProducts.Find(m => m.name == name).id;
+                shoppingCart.listOfOrderItems.Add(OrderItem.Get(id, enter_amount));
+                int product_index = mikpres.listOfProducts.FindIndex(m => m.name == name);
+                mikpres.listOfProducts[product_index].amount -= enter_amount;
             }
             void Delete_Order_Item(ShoppingCart shoppingCart)
             {
@@ -141,8 +144,10 @@ namespace Big_Domashka
                 string name = Console.ReadLine();
                 Console.WriteLine("Введите какое количество товара вы бы хотели удалить");
                 double enter_amount = Convert.ToInt32(Console.ReadLine());
-                shoppingCart.listOfOrderItems.Find(m => m.productId == mikpres.listOfProducts.Find(m => m.name == name).id).count -= enter_amount;
-                mikpres.listOfProducts[mikpres.listOfProducts.FindIndex(m => m.name == name)].amount += enter_amount;
+                Guid product_id = mikpres.listOfProducts.Find(m => m.name == name).id;
+                shoppingCart.listOfOrderItems.Find(m => m.productId == product_id).count -= enter_amount;
+                int product_index = mikpres.listOfProducts.FindIndex(m => m.name == name);
+                mikpres.listOfProducts[product_index].amount += enter_amount;
             }
             void Make_Order(int index, ShoppingCart shoppingCart)
             {
@@ -172,11 +177,13 @@ namespace Big_Domashka
             {
                 if (Buyer.users_Buyer[index].listOfOrders != null)
                 {
+                    Guid product_id;
                     for (int i = 0; i < Buyer.users_Buyer[index].listOfOrders.Count; i++)
                     {
                         for (int j = 0; j < Buyer.users_Buyer[index].listOfOrders[i].listOfOrderItems.Count; j++)
                         {
-                            Console.WriteLine(mikpres.listOfProducts.Find(m => m.id == Buyer.users_Buyer[index].listOfOrders[i].listOfOrderItems[j].productId).name);
+                            product_id = Buyer.users_Buyer[index].listOfOrders[i].listOfOrderItems[j].productId;
+                            Console.WriteLine(mikpres.listOfProducts.Find(m => m.id == product_id).name);
                             Console.WriteLine(Buyer.users_Buyer[index].listOfOrders[i].listOfOrderItems[j].count);
                         }
                     }
@@ -189,8 +196,8 @@ namespace Big_Domashka
             void Check_Order_Data(int index)
             {
                 Console.WriteLine("Введите имя заказа о котором вы бы хотели узнать подробную информацию");
-                Guid productId1 = mikpres.listOfProducts.Find(l => l.name == Console.ReadLine()).id;
-                Console.WriteLine(Buyer.users_Buyer[index].listOfOrders.Find(m => m.listOfOrderItems.Find(k => k.productId == productId1).productId == productId1).dateOfOrder);
+                Guid productId = mikpres.listOfProducts.Find(m => m.name == Console.ReadLine()).id;
+                Console.WriteLine(Buyer.users_Buyer[index].listOfOrders.Find(m => m.listOfOrderItems.Find(k => k.productId == productId).productId == productId).dateOfOrder);
             }
             void Buyer_Moves(Person foundedUser)
             {
